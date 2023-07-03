@@ -10,6 +10,7 @@ const TweetBox = ({ onTweet }) => {
   const sendTweet = (e) => {
     e.preventDefault()
     onTweet(tweetMessage)
+    setTweetMessage('')
   }
 
   return (

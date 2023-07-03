@@ -36,7 +36,7 @@ const resolvers = {
       })
         .populate('userId')
         .lean()
-      const userPosts = await Post.find({ postId: { $in: user.posts } })
+      const userPosts = await Post.find({ _id: { $in: user.posts } })
         .populate('userId')
         .lean()
 

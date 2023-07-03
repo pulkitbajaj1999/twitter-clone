@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { signup } from '../../store/authActions'
 
 import Avatar from '@mui/material/Avatar'
@@ -19,6 +20,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 const defaultTheme = createTheme()
 
 export default function SignUp() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const handleSubmit = (event) => {
@@ -34,6 +36,7 @@ export default function SignUp() {
         password: data.get('password'),
       })
     )
+    navigate('/login')
   }
 
   return (
