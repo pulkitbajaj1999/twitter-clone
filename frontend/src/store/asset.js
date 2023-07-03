@@ -14,7 +14,7 @@ const assetSlice = createSlice({
       state.users = action.payload
     },
     appendFeed: (state, action) => {
-      state.feeds.push(action.payload)
+      state.feeds.unshift(action.payload)
     },
     removeFeed: (state, action) => {
       const postId = action.payload.id

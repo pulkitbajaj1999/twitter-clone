@@ -48,7 +48,7 @@ export const fetchFeeds =
       dispatch(setFeeds(feeds))
     } catch (error) {
       // Extract the error message from the response
-      const { msg } = error.response.data
+      const msg = error?.message
 
       // Dispatch the setError action
       dispatch(setError(msg))
@@ -67,6 +67,8 @@ export const addPost =
           userId
           body
           timeStamp
+          userName
+          fullName
         }
       }
     `
@@ -84,7 +86,7 @@ export const addPost =
       dispatch(appendFeed(post))
     } catch (error) {
       // Extract the error message from the response
-      const { msg } = error.response.data
+      const msg = error?.message
 
       // Dispatch the setError action
       dispatch(setError(msg))
@@ -101,6 +103,8 @@ export const editPost =
           id
           body
           timeStamp
+          fullName
+          userName
         }
       }
     `
@@ -120,7 +124,7 @@ export const editPost =
       dispatch(editFeed(post))
     } catch (error) {
       // Extract the error message from the response
-      const { msg } = error.message
+      const msg = error?.message
 
       // Dispatch the setError action
       dispatch(setError(msg))
@@ -161,7 +165,7 @@ export const deletePost =
       }
     } catch (error) {
       // Extract the error message from the response
-      const { msg } = error.response.data
+      const msg = error?.message
 
       // Dispatch the setError action
       dispatch(setError(msg))
@@ -201,7 +205,7 @@ export const fetchUsers =
       dispatch(setUsers(users))
     } catch (error) {
       // Extract the error message from the response
-      const { msg } = error.response.data
+      const msg = error?.message
 
       // Dispatch the setError action
       dispatch(setError(msg))
@@ -223,7 +227,7 @@ export const fetchUser = () => async (dispatch) => {
     dispatch(setUsers(users))
   } catch (error) {
     // Extract the error message from the response
-    const { msg } = error.response.data
+    const msg = error?.message
 
     // Dispatch the setError action
     dispatch(setError(msg))
@@ -254,7 +258,7 @@ export const toggleFollow =
       dispatch(updateUsersFromFollowingList(following))
     } catch (error) {
       // Extract the error message from the response
-      const { msg } = error.response.data
+      const msg = error?.message
 
       // Dispatch the setError action
       dispatch(setError(msg))

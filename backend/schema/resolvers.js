@@ -163,16 +163,29 @@ const resolvers = {
       await post.save()
       user.posts.push(post)
       await user.save()
-      return post
+      return {
+        ...post.toObject(),
+        id: post._id,
+        fullName: `${user.firstName} ${user.lastName}`,
+        userName: user.userName,
+      }
     },
 
     updatePost: async (parent, args, context) => {
+      console.log('updating post')
       if (!context.isAuthenticated) throw ERROR_NOT_AUTHENTICATED
       const { postId, body } = args
-      const post = await Post.findById(postId)
+      let post = await Post.findById(postId).populate('userId')
       if (!post) throw new Error('post not found')
       post.body = body
-      return await post.save()
+      await post.save()
+      return {
+        ...post.toObject(),
+        id: post._id,
+        fullName: `${post?.userId?.firstName} ${post?.userId?.lastName}`,
+        userName: post?.userId?.userName,
+        userId: post.userId._id,
+      }
     },
 
     deletePost: async (parent, args, context) => {

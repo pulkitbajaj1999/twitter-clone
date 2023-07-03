@@ -44,7 +44,7 @@ export const login = (credentials) => async (dispatch) => {
     dispatch(setIsAuthenticated(true))
   } catch (error) {
     // Extract the error message from the response
-    const { msg } = error.response.data
+    const msg = error?.message
 
     // Dispatch the setError action
     dispatch(setError(msg))
@@ -121,7 +121,7 @@ export const checkAuth = () => async (dispatch) => {
     dispatch(setUser(user))
     dispatch(setIsAuthenticated(true))
   } catch (error) {
-    const { msg } = error.response.data
+    const msg = error?.message
     // Dispatch the setError action
     dispatch(setError(msg))
   }
