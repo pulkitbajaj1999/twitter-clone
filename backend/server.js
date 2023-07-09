@@ -27,7 +27,7 @@ const PORT = process.env.PORT || 8000
 const HOST = process.env.HOST || '0.0.0.0'
 const MONGODB_URI =
   process.env.MONGODB_URI || 'mongodb://localhost:27017/twitter-clone'
-const FRONTEND_BUILD_PATH = path.resolve('..', 'frontend', 'build')
+const FRONTEND_BUILD_PATH = path.resolve('build')
 
 const serverConfig = {
   typeDefs,
