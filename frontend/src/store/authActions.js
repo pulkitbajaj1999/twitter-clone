@@ -3,6 +3,7 @@ import {
   setToken,
   setUser,
   setIsAuthenticated,
+  setLoading,
   setError,
   clearError,
 } from './auth'
@@ -11,6 +12,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || ''
 const GRAPHQL_URL = BASE_URL + '/graphql'
 
 export const login = (credentials) => async (dispatch) => {
+  dispatch(setLoading(true))
   try {
     // Send a request to the server with the credentials
     const query = `
@@ -49,6 +51,7 @@ export const login = (credentials) => async (dispatch) => {
     // Dispatch the setError action
     dispatch(setError(msg))
   }
+  dispatch(setLoading(false))
 }
 
 export const logout = () => (dispatch) => {
@@ -63,6 +66,7 @@ export const logout = () => (dispatch) => {
 }
 
 export const signup = (credentials) => async (dispatch) => {
+  dispatch(setLoading(true))
   try {
     // Send a request to the server with the credentials
     const mutation = `
@@ -85,13 +89,19 @@ export const signup = (credentials) => async (dispatch) => {
     // Dispatch the setError action
     dispatch(setError(msg))
   }
+  dispatch(setLoading(false))
 }
 
 export const checkAuth = () => async (dispatch) => {
+  dispatch(setLoading(true))
   try {
     // Get the token from the local storage
     const token = localStorage.getItem('token')
-    if (!token) return
+    if (!token) {
+      dispatch(setLoading(false))
+      dispatch(setIsAuthenticated(false))
+      return
+    }
     // Send a request to the server to check the authentication
     const query = `
       query {
@@ -123,6 +133,10 @@ export const checkAuth = () => async (dispatch) => {
   } catch (error) {
     const msg = error?.message
     // Dispatch the setError action
+    dispatch(setIsAuthenticated(false))
+    dispatch(setToken(null))
+    dispatch(setUser(null))
     dispatch(setError(msg))
   }
+  dispatch(setLoading(false))
 }
